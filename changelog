@@ -1,0 +1,10 @@
+# Changelog
+## v0.1.0-alpha - 2/17/2026
+## First release
+### Added
+- Create and modify recipes
+- Create and delete tags
+- Create and delete ingredients
+- Search recipes to edit
+- Keyword search option for searching for exact keywords
+- Daily auto backup (file overwritten on each start up in a day)
