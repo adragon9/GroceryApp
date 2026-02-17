@@ -2,7 +2,7 @@
 ## Notice
 This app is early in development, there will be major issues and underdeveloped ideas at this stage.
 ## How to use
-Right now you can only add recipes, when you save a recipe, ingredient or tag, it will be added to a db file in the directory of the executable. 
+Right now you can only add recipes, tags and ingredients. When you save a recipe, ingredient or tag, it will be added to a db file in the directory of the executable. 
 - Note: I plan to make a db folder later because having it in the same directory as the exe will be cluttered and ugly.
 
 In order to remove an ingredient or tag go to the management tab for the category and right click the entry and click delete, a pop up will ask if you're sure. Click yes and its removed.
