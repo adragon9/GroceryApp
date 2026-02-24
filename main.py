@@ -210,7 +210,6 @@ class MainWindow(QMainWindow):
             
         try:
             self.tags_list = self.database.retrieve_tags()
-            # DEBUG print(self.tags_list)
         except Exception as e:
             QMessageBox.critical(self,"Database Error", f"Tags failed to load with error: {e}")
             self.tags_list = [] 
@@ -258,8 +257,6 @@ class MainWindow(QMainWindow):
         
         # Edit group 1
         layout.addItem(QSpacerItem(spacer_width, spacer_height, QSizePolicy.Policy.Minimum)) # Spacing
-        #edit_group_1 = QHBoxLayout()
-        #layout.addLayout(edit_group_1)
         
         self.recipe_name_label = QLabel(f"Recipe Name: ")
         self.recipe_name_input = QLineEdit()  # Renamed for clarity
@@ -303,6 +300,7 @@ class MainWindow(QMainWindow):
         tab = QWidget()
         layout = QVBoxLayout(tab)
         
+        # Ingredient list view setup
         self.ingredients_model = QStringListModel()
         proxy_model = QSortFilterProxyModel()
         proxy_model.setSourceModel(self.ingredients_model)
@@ -310,23 +308,16 @@ class MainWindow(QMainWindow):
         self.ingredients_view = QListView()
         self.ingredients_view.setEditTriggers(QListView.EditTrigger.NoEditTriggers)
         self.ingredients_view.setModel(proxy_model)
-        proxy_model.sort(0, Qt.SortOrder.AscendingOrder)
+        proxy_model.sort(0, Qt.SortOrder.AscendingOrder) # Sort list
         
-        layout.addWidget(self.ingredients_view)
-        
-        edit_group = QHBoxLayout()
-        layout.addLayout(edit_group)
-        
+        # Group 1 - Add ingredient group
+        group_1 = QHBoxLayout()
         self.ingredient_edit = QLineEdit()
         self.ingredient_edit.setPlaceholderText("Enter an ingredient here...")
         ingredient_submit = QPushButton("Submit")
         
-        edit_group.addWidget(self.ingredient_edit)
-        edit_group.addWidget(ingredient_submit)
-        
+        # Save button
         ingredient_save = QPushButton("Save")
-        
-        layout.addWidget(ingredient_save)
         
         # Policies
         self.ingredients_view.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
@@ -336,13 +327,21 @@ class MainWindow(QMainWindow):
         self.ingredients_view.customContextMenuRequested.connect(self.ingredients_context_menu)
         ingredient_submit.clicked.connect(self.update_ingredients_display)
         ingredient_save.clicked.connect(self.save_ingredients)
-                
+        
+        # Layout
+        layout.addWidget(self.ingredients_view)
+        layout.addLayout(group_1)
+        group_1.addWidget(self.ingredient_edit)
+        group_1.addWidget(ingredient_submit)
+        layout.addWidget(ingredient_save)
+        
         self.tabs.addTab(tab, "Manage Ingredients")
 
     def tag_list_tab(self):
         tab = QWidget()
         layout = QVBoxLayout(tab)
         
+        # Tag view setup
         self.tags_model = QStringListModel()
         proxy_model = QSortFilterProxyModel()
         proxy_model.setSourceModel(self.tags_model)
@@ -350,23 +349,16 @@ class MainWindow(QMainWindow):
         self.tags_view = QListView()
         self.tags_view.setEditTriggers(QListView.EditTrigger.NoEditTriggers)
         self.tags_view.setModel(proxy_model)
-        proxy_model.sort(0, Qt.SortOrder.AscendingOrder)
+        proxy_model.sort(0, Qt.SortOrder.AscendingOrder) # Sort tags
         
-        layout.addWidget(self.tags_view)
-        
-        edit_group = QHBoxLayout()
-        layout.addLayout(edit_group)
-        
+        # Group 1 - Add tag
+        group_1 = QHBoxLayout()
         self.tag_edit = QLineEdit()
         self.tag_edit.setPlaceholderText("Enter a tag here...")
         tag_submit = QPushButton("Submit")
         
-        edit_group.addWidget(self.tag_edit)
-        edit_group.addWidget(tag_submit)
-        
+        # Save button
         tag_save = QPushButton("Save")
-        
-        layout.addWidget(tag_save)
         
         # Policies
         self.tags_view.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
@@ -376,29 +368,33 @@ class MainWindow(QMainWindow):
         self.tags_view.customContextMenuRequested.connect(self.tags_context_menu)
         tag_submit.clicked.connect(self.update_tags_display)
         tag_save.clicked.connect(self.save_tags)
-                
+        
+        # Layout
+        layout.addWidget(self.tags_view)
+        layout.addLayout(group_1)
+        group_1.addWidget(self.tag_edit)
+        group_1.addWidget(tag_submit)
+        layout.addWidget(tag_save)
+        
         self.tabs.addTab(tab, "Manage Tags")
 
     def recipe_editor_tab(self):
         tab = QWidget()
         layout = QVBoxLayout(tab)
-                
+        
+        # Button width for consistent buttons    
         fixed_btn_width = 128
         
-        search_group = QHBoxLayout()
-        layout.addLayout(search_group)
-        
+        # Group 1 - Recipe Search
+        group_1 = QHBoxLayout()        
         self.search_input = QLineEdit()
         self.search_input.setPlaceholderText("Search recipe...")
         self.keyword_check = QCheckBox("Keyword Search")
         self.keyword_check.setCheckState(Qt.CheckState.Checked) # I think this is the better mode so I am leaving it checked by default
         search_btn = QPushButton("Search")
         search_btn.setFixedWidth(fixed_btn_width)
-        search_group.addWidget(self.search_input)
-        search_group.addWidget(search_btn)
-        layout.addWidget(self.keyword_check, alignment=Qt.AlignmentFlag.AlignRight)
-        
-        # List setup
+
+        # Recipe viewer setup
         self.recipe_viewer_model = QStringListModel(self.recipe_names)
         proxy_model = QSortFilterProxyModel()
         proxy_model.setSourceModel(self.recipe_viewer_model)
@@ -407,13 +403,21 @@ class MainWindow(QMainWindow):
         self.recipe_viewer.setEditTriggers(QListView.EditTrigger.NoEditTriggers)
         self.recipe_viewer.setModel(proxy_model)
         proxy_model.setSortCaseSensitivity(Qt.CaseSensitivity.CaseInsensitive)
-        proxy_model.sort(0, Qt.SortOrder.AscendingOrder)
+        proxy_model.sort(0, Qt.SortOrder.AscendingOrder) # Sort recipes
+        
+        # Policies
+        ## NONE ##
         
         # Connections
         self.recipe_viewer.doubleClicked.connect(self.open_recipe_details)
         search_btn.clicked.connect(self.edit_tab_search)
         self.search_input.returnPressed.connect(search_btn.click)
         
+        # Layout
+        layout.addLayout(group_1)
+        group_1.addWidget(self.search_input)
+        group_1.addWidget(search_btn)
+        layout.addWidget(self.keyword_check, alignment=Qt.AlignmentFlag.AlignRight)
         layout.addWidget(self.recipe_viewer)
         
         self.tabs.addTab(tab, "Edit Recipe")
@@ -426,6 +430,7 @@ class MainWindow(QMainWindow):
 
     # Add recipe tab functions
     def recipe_tab_submit(self):
+        # Ensure all required fields are edited
         if not self.recipe_name_input.text():
             self.recipe_name_label.setText("Recipe Name:*")
             self.recipe_name_label.setStyleSheet("color:red;font-weight:bold")
@@ -459,21 +464,21 @@ class MainWindow(QMainWindow):
                 self.refresh_recipes()
             except Exception as e:
                 QMessageBox.critical(self, "Error", f"An error has occured @recipe_tab_submit please note the following error:\n{e}")
-                # DEBUG print(e)
                             
     def edit_tab_search(self):
-        # This is gonna take a while ;~;
         self.search_input.setReadOnly(True) # Disable the line edit while search is preformed.
         self.search_results.clear()
         input_text = self.search_input.text().strip()
         self.search_input.clear()
                    
-        if input_text.strip() == "":
+        if input_text == "":
+            # Should make it so if the user has nothing in the search it just returns the regular recipe list
             self.recipe_viewer_model.removeRows(0, self.recipe_viewer_model.rowCount())
             self.recipe_viewer_model.setStringList(self.recipe_names)
         else:
-            match_threshold = 23
+            match_threshold = 23 # How sensitive should the search be higher num is stricter
             score_saves = {}
+            
             for recipe in self.recipe_names:
                 comparison_score = fuzz.ratio(recipe, input_text)
                 if self.keyword_check.checkState() == Qt.CheckState.Checked:
@@ -484,13 +489,13 @@ class MainWindow(QMainWindow):
                             break
                 else:
                     score_saves[recipe] = comparison_score
-            # DEBUG print(score_saves)
+            # Final results processing        
             if self.keyword_check.checkState() == Qt.CheckState.Unchecked:
                 self.search_results = [key for key in score_saves.keys() if score_saves[key] >= match_threshold]
             else:
                 self.search_results = [key for key in score_saves.keys()]
                     
-            self.search_results.sort()
+            self.search_results.sort() # Might not be needed 
             
             self.recipe_viewer_model.removeRows(0, self.recipe_viewer_model.rowCount())
             self.recipe_viewer_model.setStringList(self.search_results)
@@ -498,6 +503,7 @@ class MainWindow(QMainWindow):
         self.search_input.setReadOnly(False) # Re-enable the line edit once search is complete.
         
     def edit_tab_display_update(self):
+        # Reinitializes the recipe viewer to reflect new changes to the db
         if self.tabs.currentIndex() == 1:
             self.recipe_viewer_model = QStringListModel(self.recipe_names)
             proxy_model = QSortFilterProxyModel()
@@ -508,15 +514,24 @@ class MainWindow(QMainWindow):
             proxy_model.sort(0, Qt.SortOrder.AscendingOrder)
             
     def open_recipe_details(self):
+        ###--CAUTION--######################################################################################################
+        # This has a pretty glaring issue in that it requires the data to be in the exact format it is in now.             #
+        # I am editing data by specific array indecies which basically means that if any index is changed this will break. #
+        ####################################################################################################################
+        # Gets the current selection from the recipe list view
         entry_name = self.recipe_viewer.currentIndex().data(Qt.ItemDataRole.DisplayRole)
         
         # Create a popup dialog
         popup = QDialog(self)
         popup.setWindowTitle(f"Recipe Details {entry_name}")
         popup.setModal(True)
+        popup.resize(600, 400)  # Set appropriate size for the dialog
         layout = QVBoxLayout(popup)
         
+        # Gets the data from the db 
         entry_data = self.database.fetch_entry_data(entry_name)
+        
+        # Creates a new editable datapack for the db entry
         self.edit_data_pack = {
             "id":"",
             "name":"",
@@ -525,15 +540,18 @@ class MainWindow(QMainWindow):
             "ingredients":[],
             "tags":[]
             }
+        
+        # Populates the editable data pack
         for i, item in enumerate(entry_data):
             try:
-                item_check = ast.literal_eval(item)
+                item_check = ast.literal_eval(item) # Checks for list
                 if type(item_check) == list:
                     if type(item_check[0]) == dict:
                         self.edit_data_pack["ingredients"] = item_check
                     else:
-                        self.edit_data_pack["tags"] = item_check
+                        self.edit_data_pack["tags"] = item_check        
             except Exception as e:
+                # This here is the problem child make sure ALL indecies are correct
                 if i == 0:
                     self.edit_data_pack["id"] = item
                 elif i == 1:
@@ -543,7 +561,6 @@ class MainWindow(QMainWindow):
                 elif i == 3:
                     self.edit_data_pack["notes"] = item
                 else:
-                    # DEBUG print(f"error : {e}")
                     QMessageBox.critical(self, "Error", f"An error has occured @open_recipe_details please note the following error:\n{e}")
 
         # Add line edit for name
@@ -559,9 +576,13 @@ class MainWindow(QMainWindow):
         # Add text edit for notes
         self.notes_edit = QTextEdit()
         self.notes_edit.setText(self.edit_data_pack["notes"])
-
+        
+        # Buttons
         edit_details = QPushButton("Detailed Edit")
         save_btn = QPushButton("Save")
+        
+        # Policies
+        ## NONE ##
         
         #Connections
         save_btn.clicked.connect(self.save_edits)
@@ -575,25 +596,29 @@ class MainWindow(QMainWindow):
         layout.addWidget(edit_details, alignment=Qt.AlignmentFlag.AlignCenter)
         layout.addWidget(save_btn, alignment=Qt.AlignmentFlag.AlignCenter)
         
-        popup.resize(600, 400)  # Set appropriate size for the dialog
         popup.exec()
   
     def detailed_edit(self):
         saveable_data = self.recipe_edit_popup(data_pack=self.edit_data_pack)
         if saveable_data is not None:
             self.database.update_recipe(saveable_data)
+        
         self.refresh_recipes()
         
     def save_edits(self):
-        # Edit the data pack
+        # Edit the data pack edp is garbage shorthand for edit data pack
         edp = self.edit_data_pack
         edp["name"] = self.name_edit.text()
         edp["mealType"] = self.meal_combo.currentText()
         edp["notes"] = self.notes_edit.toPlainText()
         
+        # Make sure the datapack is actually populated
         if self.edit_data_pack is not None:
             self.database.update_recipe(edp)
+
         self.refresh_recipes()
+        
+        # Update displays to reflect changes
         self.edit_tab_display_update()
         
     # Ingredients tab functions
@@ -779,6 +804,10 @@ class MainWindow(QMainWindow):
             return False
         
     def refresh_recipes(self):
+        '''
+        :param self:
+        \nRefresh the recipe data from the database to reflect changes
+        '''
         self.recipes = self.database.retrieve_recipes()
         if self.recipes:
             self.recipe_names = [name[1] for name in self.recipes]
