@@ -1,10 +1,18 @@
-import sqlite3, json
+import sqlite3, json, os
 import datetime as dt
+
+# Move these into a paths file later
+DB_DIR = r".\database"
+BACKUP_DIR = r".\database\backups"
+DB_PATH = os.path.join(DB_DIR, r"GroceryApp.db")
+BACKUP_PATH = os.path.join(BACKUP_DIR, f"GroceryApp_Backup-{dt.datetime.strftime(dt.datetime.now(),"%m-%d-%Y")}.db") 
 
 class DBHandler():
     def __init__(self):
-        DB_NAME = "GroceryApp.db"
-        self.db = sqlite3.connect(DB_NAME)
+        if not os.path.exists(DB_DIR) or not os.path.exists(BACKUP_DIR):
+            os.makedirs(BACKUP_DIR)
+            
+        self.db = sqlite3.connect(DB_PATH)
         self.cursor = sqlite3.Cursor(self.db)
         self.ensure_tables()
         self.create_backup()
@@ -201,8 +209,8 @@ class DBHandler():
         \nThis is pretty simple for now, I might add better backups in the future
         """
         try:
-            file_path = f"GroceryApp_Backup-{dt.datetime.strftime(dt.datetime.now(),"%m-%d-%Y")}.db"
-            dest_conn = sqlite3.connect(file_path)
+            
+            dest_conn = sqlite3.connect(BACKUP_PATH)
             with self.db:
                 self.db.backup(dest_conn)
             # DEBUG print("Backup success!")
