@@ -2,7 +2,7 @@
 
 ## v0.1.0-alpha - 2/17/2026
 
-## *First Release*
+## _First Release_
 
 ### Added
 
@@ -13,9 +13,15 @@
 - Keyword search option for searching for exact keywords
 - Daily auto backup (file overwritten on each start up in a day)
 
+---
+
 ## v0.1.0.1-alpha - 02/03/2026
 
-## *Minor fixes*
+## _Minor fixes_
+
+### Added
+
+- Added InfoLogging.py this will be used for logging errors and information (not currently in use)
 
 ### Changed
 
@@ -23,11 +29,11 @@
 - Moved helper scripts to new 'scripts' directory
 - Moved Database save location
 
-## Updated
+### Updated
 
 - Updated .gitignore
 - Updated imports
 
-## Removed
+### Removed
 
 - Removed several libraries that were unused in the project from requirements.txt
