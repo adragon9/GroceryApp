@@ -75,7 +75,7 @@
  [],
  False,
  False,
- 1771117667,
+ 1772636673,
  [('runw.exe',
    'C:\\Users\\adrag\\Documents\\PythonProjects\\GroceryApp\\.venv\\Lib\\site-packages\\PyInstaller\\bootloader\\Windows-64bit-intel\\runw.exe',
    'EXECUTABLE')],

@@ -18,8 +18,7 @@
   <a target="code" href="///C:/Users/adrag/Documents/PythonProjects/GroceryApp/main.py" type="text/plain"><tt>main.py</tt></a>
 <span class="moduletype">Script</span>  <div class="import">
 imports:
-    <a href="#DatabaseManager">DatabaseManager</a>
- &#8226;   <a href="#PyQt6.QtCore">PyQt6.QtCore</a>
+    <a href="#PyQt6.QtCore">PyQt6.QtCore</a>
  &#8226;   <a href="#PyQt6.QtGui">PyQt6.QtGui</a>
  &#8226;   <a href="#PyQt6.QtWidgets">PyQt6.QtWidgets</a>
  &#8226;   <a href="#_collections_abc">_collections_abc</a>
@@ -174,6 +173,8 @@ imports:
  &#8226;   <a href="#re._constants">re._constants</a>
  &#8226;   <a href="#re._parser">re._parser</a>
  &#8226;   <a href="#reprlib">reprlib</a>
+ &#8226;   <a href="#scripts.DatabaseManager">scripts.DatabaseManager</a>
+ &#8226;   <a href="#scripts.SubWindows">scripts.SubWindows</a>
  &#8226;   <a href="#sre_compile">sre_compile</a>
  &#8226;   <a href="#sre_constants">sre_constants</a>
  &#8226;   <a href="#sre_parse">sre_parse</a>
@@ -360,24 +361,6 @@ imported by:
 </div>
 
 <div class="node">
-  <a name="DatabaseManager"></a>
-  <a target="code" href="///C:/Users/adrag/Documents/PythonProjects/GroceryApp/DatabaseManager.py" type="text/plain"><tt>DatabaseManager</tt></a>
-<span class="moduletype">SourceModule</span>  <div class="import">
-imports:
-    <a href="#datetime">datetime</a>
- &#8226;   <a href="#json">json</a>
- &#8226;   <a href="#sqlite3">sqlite3</a>
-
-  </div>
-  <div class="import">
-imported by:
-    <a href="#main.py">main.py</a>
-
-  </div>
-
-</div>
-
-<div class="node">
   <a name="PyQt6"></a>
   <a target="code" href="///C:/Users/adrag/Documents/PythonProjects/GroceryApp/.venv/Lib/site-packages/PyQt6/__init__.py" type="text/plain"><tt>PyQt6</tt></a>
 <span class="moduletype">Package</span>  <div class="import">
@@ -421,6 +404,7 @@ imported by:
  &#8226;   <a href="#PyQt6.QtGui">PyQt6.QtGui</a>
  &#8226;   <a href="#PyQt6.QtWidgets">PyQt6.QtWidgets</a>
  &#8226;   <a href="#main.py">main.py</a>
+ &#8226;   <a href="#scripts.SubWindows">scripts.SubWindows</a>
 
   </div>
 
@@ -446,6 +430,7 @@ imported by:
     <a href="#PyQt6">PyQt6</a>
  &#8226;   <a href="#PyQt6.QtWidgets">PyQt6.QtWidgets</a>
  &#8226;   <a href="#main.py">main.py</a>
+ &#8226;   <a href="#scripts.SubWindows">scripts.SubWindows</a>
 
   </div>
 
@@ -470,6 +455,7 @@ imports:
   <div class="import">
 imported by:
     <a href="#main.py">main.py</a>
+ &#8226;   <a href="#scripts.SubWindows">scripts.SubWindows</a>
 
   </div>
 
@@ -2065,13 +2051,13 @@ imports:
   </div>
   <div class="import">
 imported by:
-    <a href="#DatabaseManager">DatabaseManager</a>
- &#8226;   <a href="#PyQt6.QtCore">PyQt6.QtCore</a>
+    <a href="#PyQt6.QtCore">PyQt6.QtCore</a>
  &#8226;   <a href="#PyQt6.QtGui">PyQt6.QtGui</a>
  &#8226;   <a href="#PyQt6.QtWidgets">PyQt6.QtWidgets</a>
  &#8226;   <a href="#_strptime">_strptime</a>
  &#8226;   <a href="#calendar">calendar</a>
  &#8226;   <a href="#email.utils">email.utils</a>
+ &#8226;   <a href="#scripts.DatabaseManager">scripts.DatabaseManager</a>
  &#8226;   <a href="#sqlite3.dbapi2">sqlite3.dbapi2</a>
 
   </div>
@@ -6103,11 +6089,11 @@ imports:
   </div>
   <div class="import">
 imported by:
-    <a href="#DatabaseManager">DatabaseManager</a>
- &#8226;   <a href="#importlib.metadata">importlib.metadata</a>
+    <a href="#importlib.metadata">importlib.metadata</a>
  &#8226;   <a href="#json.decoder">json.decoder</a>
  &#8226;   <a href="#json.encoder">json.encoder</a>
  &#8226;   <a href="#json.scanner">json.scanner</a>
+ &#8226;   <a href="#scripts.DatabaseManager">scripts.DatabaseManager</a>
 
   </div>
 
@@ -6514,6 +6500,7 @@ imported by:
  &#8226;   <a href="#rapidfuzz.fuzz">rapidfuzz.fuzz</a>
  &#8226;   <a href="#rapidfuzz.process">rapidfuzz.process</a>
  &#8226;   <a href="#rapidfuzz.utils">rapidfuzz.utils</a>
+ &#8226;   <a href="#scripts.DatabaseManager">scripts.DatabaseManager</a>
  &#8226;   <a href="#shutil">shutil</a>
  &#8226;   <a href="#socket">socket</a>
  &#8226;   <a href="#subprocess">subprocess</a>
@@ -8067,6 +8054,57 @@ imported by:
 </div>
 
 <div class="node">
+  <a name="scripts"></a>
+  <a target="code" href="-" type="text/plain"><tt>scripts</tt></a>
+<span class="moduletype">NamespacePackage</span>  <div class="import">
+imported by:
+    <a href="#scripts.DatabaseManager">scripts.DatabaseManager</a>
+ &#8226;   <a href="#scripts.SubWindows">scripts.SubWindows</a>
+
+  </div>
+
+</div>
+
+<div class="node">
+  <a name="scripts.DatabaseManager"></a>
+  <a target="code" href="///C:/Users/adrag/Documents/PythonProjects/GroceryApp/scripts/DatabaseManager.py" type="text/plain"><tt>scripts.DatabaseManager</tt></a>
+<span class="moduletype">SourceModule</span>  <div class="import">
+imports:
+    <a href="#datetime">datetime</a>
+ &#8226;   <a href="#json">json</a>
+ &#8226;   <a href="#os">os</a>
+ &#8226;   <a href="#scripts">scripts</a>
+ &#8226;   <a href="#sqlite3">sqlite3</a>
+
+  </div>
+  <div class="import">
+imported by:
+    <a href="#main.py">main.py</a>
+
+  </div>
+
+</div>
+
+<div class="node">
+  <a name="scripts.SubWindows"></a>
+  <a target="code" href="///C:/Users/adrag/Documents/PythonProjects/GroceryApp/scripts/SubWindows.py" type="text/plain"><tt>scripts.SubWindows</tt></a>
+<span class="moduletype">SourceModule</span>  <div class="import">
+imports:
+    <a href="#PyQt6.QtCore">PyQt6.QtCore</a>
+ &#8226;   <a href="#PyQt6.QtGui">PyQt6.QtGui</a>
+ &#8226;   <a href="#PyQt6.QtWidgets">PyQt6.QtWidgets</a>
+ &#8226;   <a href="#scripts">scripts</a>
+
+  </div>
+  <div class="import">
+imported by:
+    <a href="#main.py">main.py</a>
+
+  </div>
+
+</div>
+
+<div class="node">
   <a name="select"></a>
   <tt>select</tt> <span class="moduletype"><tt>C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.3312.0_x64__qbz5n2kfra8p0\DLLs\select.pyd</tt></span>  <div class="import">
 imported by:
@@ -8187,7 +8225,7 @@ imports:
   </div>
   <div class="import">
 imported by:
-    <a href="#DatabaseManager">DatabaseManager</a>
+    <a href="#scripts.DatabaseManager">scripts.DatabaseManager</a>
  &#8226;   <a href="#sqlite3">sqlite3</a>
  &#8226;   <a href="#sqlite3.__main__">sqlite3.__main__</a>
  &#8226;   <a href="#sqlite3.dbapi2">sqlite3.dbapi2</a>

@@ -1,6 +1,5 @@
 \.venv
 *.db
-Grocery App.zip
 \.ignore
 \logs
 \database

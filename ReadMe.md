@@ -1,6 +1,8 @@
 # Grocery App
 
-### Changelog: https://github.com/adragon9/GroceryApp/blob/main/changelog.md
+## Changelog
+
+Click [this link](https://github.com/adragon9/GroceryApp/blob/main/changelog.md) to view the changelog
 
 ## Notice
 
