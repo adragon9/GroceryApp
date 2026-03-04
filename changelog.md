@@ -52,6 +52,7 @@
 
 - Added new context menu options to the edit recipe tab
 - Added the ability to delete recipes
+- Added a folder containing released and unreleased versions [click here](https://github.com/adragon9/GroceryApp/tree/main/dist/versions) to view.
 
 ### Updated
 
