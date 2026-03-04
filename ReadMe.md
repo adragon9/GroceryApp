@@ -2,7 +2,8 @@
 
 ## Changelog
 
-Click [this link](https://github.com/adragon9/GroceryApp/blob/main/changelog.md) to view the changelog
+- Click [this link](https://github.com/adragon9/GroceryApp/blob/main/changelog.md) to view the changelog
+- Click [this link](https://github.com/adragon9/GroceryApp/blob/main/changelog.md#v0110-alpha---04032026) to go straight to the latest version.
 
 ## Notice
 
