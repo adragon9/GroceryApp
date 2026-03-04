@@ -44,6 +44,10 @@
 
 ## _Minor Update_
 
+### Updated Executable Notice
+
+- A recompiled version can be found in the [dist](https://github.com/adragon9/GroceryApp/tree/main/dist) folder.
+
 ### Added
 
 - Added new context menu options to the edit recipe tab
@@ -54,3 +58,5 @@
 - Updated Context menu behavior for a better user experience
 - Updated the Edit Recipe tab's name to Edit/View Recipe to better reflect its function
 - Updated the ingredient editor's behavior, it will now close and save upon clicking 'Apply'.
+- Updated requirements.txt
+- Updated the readme for release clarifications
