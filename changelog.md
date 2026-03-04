@@ -21,7 +21,7 @@
 
 ### Added
 
-- Added InfoLogging.py this will be used for logging errors and information (not currently in use)
+- Added InfoLogging.py this will be used for logging errors and information
 
 ### Changed
 
@@ -37,3 +37,20 @@
 ### Removed
 
 - Removed several libraries that were unused in the project from requirements.txt
+
+---
+
+## v0.1.1.0-alpha - 04/03/2026
+
+## _Minor Update_
+
+### Added
+
+- Added new context menu options to the edit recipe tab
+- Added the ability to delete recipes
+
+### Updated
+
+- Updated Context menu behavior for a better user experience
+- Updated the Edit Recipe tab's name to Edit/View Recipe to better reflect its function
+- Updated the ingredient editor's behavior, it will now close and save upon clicking 'Apply'.

@@ -138,6 +138,7 @@ class DBHandler():
         except Exception as e:
             print(e)
             return str(e)
+        
     # Remove
     def remove_ingredient(self, ingredient_name):
         try:
@@ -160,6 +161,18 @@ class DBHandler():
                 print(f"No such tag found: {tag_name}")
         except sqlite3.Error as e:
             print(f"Failed to remove tag '{tag_name}': {e}")
+            
+    def remove_recipe(self, recipe_name):
+        """Remove a recipe by name"""
+        print(recipe_name)
+        try:
+            self.cursor.execute("DELETE FROM recipes WHERE name = ?", (recipe_name,))
+            self.db.commit()
+            self.__verify_tag_ids()
+            if self.cursor.rowcount == 0:
+                print(f"No such recipe found: {recipe_name}")
+        except sqlite3.Error as e:
+            print(f"Failed to remove recipe '{recipe_name}': {e}")
             
     # Update
     def __verify_ingredient_ids(self):

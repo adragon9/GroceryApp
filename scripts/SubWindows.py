@@ -165,6 +165,8 @@ class IngredientSelector(QDialog):
             if tag_data[key] == True:
                 self.data_pack["tags"].append(key)
         # DEBUG print(f"From 'apply' in popup window: {self.data_pack}")
+        
+        self.close()
                 
     def init_with_data_pack(self):
         for checkbox in self.checkboxes:

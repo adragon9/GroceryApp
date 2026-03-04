@@ -5,7 +5,7 @@ from PyQt6.QtWidgets import (QApplication, QMainWindow, QTabWidget, QWidget,
                              QLineEdit, QTextEdit, QSizePolicy, QSpacerItem, 
                              QComboBox, QListView, QCheckBox, QDialog, QMenu,
                              QMessageBox)
-from PyQt6.QtCore import Qt, QStringListModel, QSortFilterProxyModel
+from PyQt6.QtCore import Qt, QStringListModel, QSortFilterProxyModel, QPoint
 from PyQt6.QtGui import QAction
 import scripts.DatabaseManager as DatabaseManager
 from scripts.SubWindows import IngredientSelector
@@ -20,11 +20,12 @@ class MainWindow(QMainWindow):
             QMessageBox.critical(self,"Database Error", f"Database failed to initalize with error: {e}")
         
         # Main vars
-        self.measurement_types = ["oz", "g", "lbs"]
+        self.measurement_types = ["oz", "g", "lbs"] # add to settings json later``
         self.measurement_types.sort()
         self.refresh_recipes()
         self.search_results = []
         self.popup_data = {}
+        
         try:
             self.ingredients_list = self.database.retrieve_ingredients()
         except Exception as e:
@@ -229,12 +230,13 @@ class MainWindow(QMainWindow):
         proxy_model.sort(0, Qt.SortOrder.AscendingOrder) # Sort recipes
         
         # Policies
-        ## NONE ##
+        self.recipe_viewer.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
         
         # Connections
         self.recipe_viewer.doubleClicked.connect(self.open_recipe_details)
         search_btn.clicked.connect(self.edit_tab_search)
         self.search_input.returnPressed.connect(search_btn.click)
+        self.recipe_viewer.customContextMenuRequested.connect(self.recipe_view_context_menu)
         
         # Layout
         layout.addLayout(group_1)
@@ -243,7 +245,7 @@ class MainWindow(QMainWindow):
         layout.addWidget(self.keyword_check, alignment=Qt.AlignmentFlag.AlignRight)
         layout.addWidget(self.recipe_viewer)
         
-        self.tabs.addTab(tab, "Edit Recipe")
+        self.tabs.addTab(tab, "Edit/View Recipes")
 
     def grocery_list_tab(self):
         tab = QWidget()
@@ -444,6 +446,45 @@ class MainWindow(QMainWindow):
         # Update displays to reflect changes
         self.edit_tab_display_update()
         
+    def recipe_view_context_menu(self, position):
+        global_pos = self.recipe_viewer.mapToGlobal(position)
+        cmenu = QMenu()
+                
+        view_action = QAction("View", self)
+        del_action = QAction("Delete", self)
+        
+        # Connections
+        view_action.triggered.connect(self.recipe_view)
+        del_action.triggered.connect(self.remove_recipe)
+        
+        cmenu.addAction(view_action)
+        cmenu.addAction(del_action)
+        
+        height_offset = -5
+        menu_height = cmenu.sizeHint().height() + height_offset
+
+        offset = QPoint(0, menu_height)
+        adjusted_pos = global_pos - offset
+        
+        cmenu.exec(adjusted_pos)
+    
+    def remove_recipe(self):
+        confirmed = self.get_confirmation()
+        if confirmed:
+            index = self.recipe_viewer.currentIndex()
+            if index.isValid():
+                recipe = self.recipe_viewer_model.data(index, Qt.ItemDataRole.DisplayRole)
+                self.database.remove_recipe(recipe)
+                self.recipe_viewer_model.removeRow(index.row())
+                self.save_recipes()
+        else:
+            return
+        
+    def save_recipes(self):
+        recipes = [self.recipe_viewer_model.data(self.recipe_viewer_model.index(row, 0), Qt.ItemDataRole.DisplayRole) for row in range(self.recipe_viewer_model.rowCount())]
+        recipes = [lower_ingredient.strip().lower() for lower_ingredient in recipes]
+        self.refresh_recipes()
+            
     # Ingredients tab functions
     def init_ingredients_display(self):
         """
@@ -495,11 +536,24 @@ class MainWindow(QMainWindow):
             self.ingredients_list = []
     
     def ingredients_context_menu(self, position):
+        global_pos = self.ingredients_view.mapToGlobal(position)
         cmenu = QMenu()
-        del_action = QAction("Delete Entry", self)
+        
+        del_action = QAction("Delete", self)
+        
+        # Connections
         del_action.triggered.connect(self.remove_ingredient)
+        
+        # Add actions
         cmenu.addAction(del_action)
-        cmenu.exec(self.mapToGlobal(position))
+        
+        menu_height_offset = -5 # Change if the context menu isn't appearing in the right position
+        menu_height = cmenu.sizeHint().height() + menu_height_offset
+                
+        offset = QPoint(0, menu_height)
+        adjusted_pos = global_pos - offset
+        
+        cmenu.exec(adjusted_pos)
         
     def remove_ingredient(self):
         """
@@ -570,11 +624,24 @@ class MainWindow(QMainWindow):
             self.tags_list = []
         
     def tags_context_menu(self, position):
+        global_pos = self.tags_view.mapToGlobal(position)
+        
         cmenu = QMenu()
-        del_action = QAction("Delete Entry", self)
+        del_action = QAction("Delete", self)
+        
+        # Connections
         del_action.triggered.connect(self.remove_tag)
+        
+        # Add actions
         cmenu.addAction(del_action)
-        cmenu.exec(self.mapToGlobal(position))
+        
+        menu_height_offset = -5 # Change if the context menu isn't appearing in the right position
+        menu_height = cmenu.sizeHint().height() + menu_height_offset
+                
+        offset = QPoint(0, menu_height)
+        adjusted_pos = global_pos - offset
+        
+        cmenu.exec(adjusted_pos)
         
     def remove_tag(self):
         """
@@ -637,7 +704,10 @@ class MainWindow(QMainWindow):
             self.recipe_names.sort()
         else:
             self.recipe_names = []
-
+    
+    def recipe_view(self):
+        QMessageBox.information(self, "Hi there", "This function isn't implemented just yet.")
+            
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     font_size = 16
