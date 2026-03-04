@@ -12,4 +12,4 @@ Right now you can only add recipes, when you save a recipe, ingredient or tag, i
 
 In order to remove an ingredient or tag go to the management tab for the category and right click the entry and click delete, a pop up will ask if you're sure. Click yes and its removed. For recipes the story is a bit different right now, I don't have a function for deleting them as of yet (coming soon) for now the workaround is you can simply edit an existing recipe and overwrite it in the recipe edit page. Apologies for the inconvenience.
 
-## Changelog: https://github.com/adragon9/GroceryApp/blob/main/changelog.md
+### Changelog: https://github.com/adragon9/GroceryApp/blob/main/changelog.md
