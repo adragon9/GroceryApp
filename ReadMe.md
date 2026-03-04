@@ -4,7 +4,7 @@
 
 ## Notice
 
-This app is early in development, there will be major issues and underdeveloped ideas at this stage. The app executable will be recompiled on major updates.
+This app is early in development, there will be major issues and underdeveloped ideas at this stage. The app executable will be with important changes but releases may only be made on major updates.
 
 ## How to use
 
