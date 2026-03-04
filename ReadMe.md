@@ -4,7 +4,7 @@
 
 ## Notice
 
-This app is early in development, there will be major issues and underdeveloped ideas at this stage. The app executable will be with important changes but releases may only be made on major updates.
+This app is early in development, there will be major issues and underdeveloped ideas at this stage. The app executable will be compiled and found in the 'dist' folder with most minor updates but full releases will be relegated to important patches/major patches and major features for now. I will try to lable the changes appropriately in the changelog.
 
 ## How to use
 
